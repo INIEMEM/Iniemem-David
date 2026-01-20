@@ -160,8 +160,8 @@ const Portfolio = () => {
         <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
           <div className="max-w-[1440px] mx-auto px-8 h-20 flex items-center justify-between">
             <div className="flex items-center gap-3 cursor-pointer group">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center text-lg font-bold">P</div>
-              <span className="text-lg font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Portfolio</span>
+              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center text-lg font-bold">I</div>
+              <span className="text-lg font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Iniemem David</span>
             </div>
             <div className="flex items-center gap-8">
               {['About', 'Work', 'Contact'].map(item => (
