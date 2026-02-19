@@ -1,493 +1,694 @@
-import React, { useState, useEffect } from 'react';
-import Chain from './assets/chain.png'
-import Skool from './assets/skool.png'
-import Air from './assets/air.png'
-import Glob from './assets/glob.png'
-import { li, link } from 'framer-motion/client';
+"use client";
 
-const Portfolio = () => {
-  const [scrollY, setScrollY] = useState(0);
-  const [activeTestimonial, setActiveTestimonial] = useState(1);
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import {
+  Code2,
+  Smartphone,
+  Server,
+  GitBranch,
+  ArrowRight,
+  Mail,
+  Linkedin,
+  Github,
+  Download,
+  Layers,
+  Zap,
+  Shield,
+  Cpu,
+  ChevronRight,
+  Menu,
+  X
+} from "lucide-react";
 
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+const projects = [
+  {
+    id: 1,
+    title: "Chaindustry",
+    role: "Full Stack Lead Engineer",
+    live: "https://app.chaindustry.io/",
+    category: "Web Platform",
+    problem:
+      "Users needed a reliable task-based earning platform, but the existing system lacked scalability, secure payments, and structured task validation.",
+    solution:
+      "Architected a scalable full-stack platform using Next.js (TSX) and Node.js with MongoDB. Containerized services with Docker and structured deployment pipelines for consistent production releases.",
+    impact: [
+      "Scaled to active multi-user environment",
+      "Reduced deployment time by 45%",
+      "Improved system reliability with containerized infra"
+    ],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "MongoDB",
+      "Docker",
+      "CI/CD"
+    ],
+    highlight: "Production Web Application"
+  },
+  {
+    id: 2,
+    title: "Venier",
+    role: "Lead Mobile Engineer",
+    category: "Mobile Application",
+    problem:
+      "Event discovery was fragmented. Users struggled to find nearby events and organizers lacked a structured system to manage ticketing and attendees.",
+    solution:
+      "Built a cross-platform React Native application enabling geo-based event discovery, secure ticket purchases, and organizer dashboards. Integrated scalable backend services and real-time updates.",
+    impact: [
+      "Unified attendee & organizer workflows",
+      "Cross-platform (iOS & Android)",
+      "Secure in-app ticket transactions"
+    ],
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Node.js",
+      "Payment Integration",
+      "Firebase"
+    ],
+    highlight: "Event Discovery & Ticketing Platform"
+  },
+  {
+    id: 3,
+    title: "Brodameko",
+    role: "Mobile Systems Architect",
+    category: "Multi-Sided Marketplace",
+    problem:
+      "Car owners faced difficulty finding trusted mechanics and verified spare parts sellers within their area.",
+    solution:
+      "Engineered a three-role mobile marketplace (Car Owner, Mechanic, Spare Parts Seller) with structured onboarding, service requests, and transactional workflows. Designed modular architecture for role-based access and scalable backend services.",
+    impact: [
+      "Three-role marketplace architecture",
+      "Service booking + product commerce",
+      "Modular scalable system design"
+    ],
+    stack: [
+      "React Native",
+      "TypeScript",
+      "Node.js",
+      "MongoDB",
+      "Cloud Hosting",
+      "Push Notifications"
+    ],
+    highlight: "Automotive Service Marketplace"
+  }
+];
 
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
 
-  const navBg = scrollY > 50 ? 'bg-[#0a0e27]/80 backdrop-blur-md' : 'bg-transparent';
+const skills = [
+  { name: "React Native", icon: Smartphone, level: 98 },
+  { name: "TypeScript", icon: Code2, level: 95 },
+  { name: "Node.js", icon: Server, level: 92 },
+  { name: "CI/CD & DevOps", icon: GitBranch, level: 90 },
+  { name: "Cloud (AWS/Firebase)", icon: Layers, level: 88 },
+  { name: "Automation", icon: Zap, level: 85 },
+];
 
-  const skills = [
-    {
-      title: 'Frontend Architecture',
-      tags: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion', 'GraphQL', 'Redux', 'Webpack']
-    },
-    {
-      title: 'Backend & APIs',
-      tags: ['Node.js', 'Express', 'PostgreSQL', 'Redis', 'REST', 'WebSockets', 'Prisma', 'MongoDB']
-    },
-    {
-      title: 'DevOps & Infrastructure',
-      tags: ['Docker', 'Kubernetes', 'AWS', 'Terraform', 'GitHub Actions', 'Jenkins', 'Nginx', 'CloudFlare']
-    },
-    {
-      title: 'Automation & Tooling',
-      tags: ['CI/CD', 'Monitoring', 'Jest', 'Cypress', 'Performance', 'Security', 'Analytics', 'Logging']
-    }
-  ];
+const metrics = [
+  { value: "99.95", label: "Uptime Achieved", suffix: "%" },
+  { value: "52", label: "Sales Growth", suffix: "%" },
+  { value: "35", label: "Engagement Boost", suffix: "%" },
+  { value: "70", label: "Faster Onboarding", suffix: "%" },
+];
 
-  const experiences = [
-    {
-      role: 'Senior Frontend Engineer',
-      company: 'Chaindustry',
-      period: '2024 - 2025',
-      highlight: 'Led design system migration across 10+ product teams',
-      achievements: [
-        'Reduced component development time by 60% through reusable library',
-        'Improved accessibility compliance from 72% to 98% WCAG AA',
-        'Established automated visual regression testing pipeline'
-      ],
-      tech: ['Next JS', 'TypeScript', 'Zustand', 'Figma', 'GitHub Actions']
-    },
-    {
-      role: 'Mobile App Developer',
-      company: 'Air Learn',
-      period: '2024 - 2025',
-      highlight: 'Developed cross-platform mobile app for e-learning platform',
-      achievements: [
-        'Achieved 4.8-star rating on Play Store with 500+ downloads',
-        'Integrated offline content access and progress sync',
-        'Implemented push notifications boosting engagement by 30%'
-      ],
-      tech: ['React-native', 'Native Wind', 'Javascript', 'Axios', 'AWS']
-    },
-    {
-      role: 'Senior Software Engineer',
-      company: 'Global Task Funds',
-      period: '2022 - 2024',
-      highlight: 'Built real-time collaboration features for SaaS platform',
-      achievements: [
-        'Shipped WebSocket-based live editing with conflict resolution',
-        'Optimized bundle size from 2.4MB to 380KB (84% reduction)',
-        'Implemented offline-first architecture with IndexedDB sync'
-      ],
-      tech: ['React', 'Node JS', 'Mongo DB', 'IndexedDB', 'Webpack', 'Docker']
-    }
-  ];
+const AnimatedCounter = ({ value, suffix }) => (
+  <div className="flex flex-col items-center justify-center">
+    <span className="text-5xl md:text-7xl font-bold text-white tracking-tight">
+      {value}
+      <span className="text-indigo-400">{suffix}</span>
+    </span>
+  </div>
+);
 
-  const projects = [
-    {
-      title: 'Design System Platform',
-      category: 'Platform',
-      description: 'Task based application where users can create and manage tasks efficiently with collaboration features.',
-      tech: ['NextJs', 'TypeScript', 'Zustand', 'Framer-motion', 'Tailwind CSS'],
-      span: 'md:col-span-2',
-      image: Chain,
-      link: 'https://app.chaindustry.io'
-    },
-    {
-      title: 'Real-Time Collaboration Engine',
-      category: 'Infrastructure',
-      description: 'WebSocket-based live editing system with operational transformation and conflict resolution for concurrent users.',
-      tech: ['Node.js', 'WebSockets', 'Redis', 'PostgreSQL'],
-      span: '',
-      image: Air,
-      link: 'https://readdy.link/preview/9cabeffa-1bd7-4355-b31e-ee131fb0eaf2/5361066'
-    },
-    {
-      title: 'Performance Monitoring Dashboard',
-      category: 'Tooling',
-      description: 'Custom observability platform tracking Core Web Vitals, API latency, and error rates across microservices.',
-      tech: ['React', 'D3.js', 'Prometheus', 'Grafana'],
-      span: '',
-      image: Glob,
-      link: 'https://readdy.link/preview/0b186241-0af2-4524-8284-512ef6e449c1/5219000'
-    },
-    {
-      title: 'Microservices Migration Framework',
-      category: 'Architecture',
-      description: 'Zero-downtime migration toolkit that decomposed monolithic Rails app into 12 independent services over 6 months.',
-      tech: ['Docker', 'Kubernetes', 'Terraform', 'AWS'],
-      span: 'md:col-span-2',
-      image: Skool,
-      link: 'https://skoolpilot.com.ng'
-    },
-    {
-      title: 'CI/CD Automation Pipeline',
-      category: 'DevOps',
-      description: 'Automated deployment system enabling 50+ daily releases with integrated testing, security scanning, and rollback capabilities.',
-      tech: ['GitHub Actions', 'Docker', 'AWS', 'Terraform'],
-      span: 'md:col-span-2',
-      image: 'https://readdy.ai/api/search-image?query=Modern%20continuous%20integration%20and%20deployment%20pipeline%20visualization%2C%20automated%20workflow%20diagram%20with%20connected%20stages%2C%20clean%20technical%20illustration%2C%20dark%20navy%20background%2C%20purple%20and%20blue%20gradient%20accents%2C%20professional%20DevOps%20tool%20aesthetic%2C%20geometric%20shapes%20representing%20automation%20processes%2C%20contemporary%20software%20development%20visualization&width=800&height=600&seq=proj5&orientation=landscape'
-    }
-  ];
+const GlassCard = ({ children, className = "" }) => (
+  <div className={`glass-card p-6 md:p-8 ${className}`}>
+    {children}
+  </div>
+);
 
-  const testimonials = [
-    {
-      quote: "One of the most technically mature engineers I've worked with. They don't just solve problems—they prevent them. Their architectural decisions saved us months of refactoring down the line.",
-      name: 'Sarah Chen',
-      title: 'VP of Engineering, TechCorp'
-    },
-    {
-      quote: "What sets them apart is the ability to balance speed with quality. They shipped our design system migration ahead of schedule while maintaining zero production incidents. That's rare.",
-      name: 'Michael Rodriguez',
-      title: 'CTO, CloudScale Inc'
-    },
-    {
-      quote: "They transformed our deployment process from a weekly ritual to something we do 50 times a day without thinking. The automation they built is still running flawlessly two years later.",
-      name: 'Emily Thompson',
-      title: 'Head of Product, StartupXYZ'
-    },
-    {
-      quote: "Their code reviews are masterclasses in software design. Every comment teaches something new about performance, maintainability, or edge cases I hadn't considered.",
-      name: 'David Park',
-      title: 'Senior Engineer, TechCorp'
-    }
-  ];
+const SectionHeading = ({ children, subtitle }) => (
+  <div className="mb-16 md:mb-24">
+    {subtitle && (
+      <motion.span
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-indigo-400 font-semibold tracking-wider text-sm uppercase mb-4 block"
+      >
+        {subtitle}
+      </motion.span>
+    )}
+    <motion.h2
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: 0.1 }}
+      className="text-4xl md:text-6xl font-bold text-white tracking-tight"
+    >
+      {children}
+    </motion.h2>
+  </div>
+);
+
+export default function Portfolio() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.2], [20, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0.6, 1]);
 
   return (
-    <div className="relative bg-[#0a0e27] text-white overflow-x-hidden">
-      {/* Background Effects */}
-      <div className="fixed top-[-400px] right-[-400px] w-[800px] h-[800px] rounded-full bg-gradient-to-br from-purple-600/10 to-blue-600/10 blur-[120px] pointer-events-none z-0" />
-      <div className="fixed bottom-[-400px] left-[-400px] w-[800px] h-[800px] rounded-full bg-gradient-to-tr from-blue-600/10 to-purple-600/10 blur-[120px] pointer-events-none z-0" />
-
-      <div className="relative z-10">
-        {/* Navigation */}
-        <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`}>
-          <div className="max-w-[1440px] mx-auto px-8 h-20 flex items-center justify-between">
-            <div className="flex items-center gap-3 cursor-pointer group">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center text-lg font-bold">I</div>
-              <span className="text-lg font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Iniemem David</span>
-            </div>
-            <div className="flex items-center gap-8">
-              {['About', 'Work', 'Contact'].map(item => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
-                  className="relative text-sm font-semibold text-white/70 hover:text-white transition-colors duration-300 group"
-                >
-                  {item}
-                  <span className="absolute bottom-[-4px] left-0 w-0 h-[2px] bg-gradient-to-r from-purple-400 to-blue-400 group-hover:w-full transition-all duration-300" />
-                </button>
-              ))}
-            </div>
-          </div>
-        </nav>
-
-        {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center px-8 pt-20">
-          <div className="max-w-[1280px] w-full">
-            <div className="max-w-[900px]">
-              <p className="text-xs uppercase tracking-[0.2em] font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-8">
-                Senior Software Engineer
-              </p>
-              <h1 className="text-6xl md:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
-                Building systems that <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">scale and survive</span>
-              </h1>
-              <p className="text-lg text-white/75 leading-relaxed max-w-[560px] mb-12">
-                I architect frontend platforms, automate infrastructure, and ship features that handle millions of requests without waking engineers at 3am.
-              </p>
-              <div className="flex items-center gap-6">
-                <button
-                  onClick={() => scrollToSection('work')}
-                  className="px-8 h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold shadow-2xl shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] transition-all duration-300"
-                >
-                  View Work
-                </button>
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="px-8 h-14 rounded-full border border-white/20 text-white font-semibold backdrop-blur-sm hover:border-purple-400/50 hover:bg-white/5 transition-all duration-300"
-                >
-                  Contact
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-            <div className="w-[2px] h-10 bg-gradient-to-b from-purple-400 to-blue-400 rounded-full animate-pulse" />
-          </div>
-        </section>
-
-        {/* About Section */}
-        <section id="about" className="relative py-40 px-8">
-          <div className="max-w-[1280px] mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-16">
-              <div>
-                <p className="text-xs uppercase tracking-[0.2em] font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-4">
-                  Systems Thinking
-                </p>
-                <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-8">
-                  I don't just write code—I design systems that outlive the sprint.
-                </h2>
-                <div className="space-y-6 text-lg text-white/70 leading-relaxed">
-                  <p>Over the past decade, I've built platforms that serve millions of users, migrated monoliths to microservices without downtime, and automated deployment pipelines that reduced release cycles from weeks to hours.</p>
-                  <p>My approach combines deep technical expertise with product intuition. I don't just implement features—I question requirements, propose alternatives, and ensure every line of code serves a measurable business outcome.</p>
-                  <p>Whether it's architecting a design system that scales across 40+ teams, optimizing database queries that cut response times by 75%, or building CI/CD infrastructure that enables 50+ daily deployments, I focus on leverage: small changes with outsized impact.</p>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { value: '99.97%', label: 'Uptime' },
-                  { value: '40%', label: 'Faster Deploys' },
-                  { value: '12', label: 'Services Migrated' },
-                  { value: 'Zero', label: 'Downtime Releases' }
-                ].map((stat, i) => (
-                  <div key={i} className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl hover:border-purple-400/30 hover:-translate-y-1 transition-all duration-300">
-                    <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-sm text-white/60">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Skills Section */}
-        <section id="skills" className="relative py-40 px-8">
-          <div className="max-w-[1120px] mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-16">
-              Technical Domains
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {skills.map((skill, i) => (
-                <div key={i} className="p-8 rounded-3xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl hover:border-purple-400/30 transition-all duration-300">
-                  <h3 className="text-lg font-semibold text-white mb-6">{skill.title}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skill.tags.map((tag, j) => (
-                      <span key={j} className="inline-flex items-center px-4 py-2 rounded-full bg-purple-500/10 border border-purple-400/30 text-sm text-white hover:bg-purple-500/20 transition-colors duration-300">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Experience Section */}
-        <section id="experience" className="relative py-40 px-8">
-          <div className="max-w-[1280px] mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-20">
-              Experience
-            </h2>
-            <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-purple-400 to-blue-400 hidden md:block" />
-              <div className="space-y-20">
-                {experiences.map((exp, i) => (
-                  <div key={i} className="relative md:pl-20">
-                    <div className="absolute left-[-7px] top-0 w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 border-[3px] border-[#0a0e27] hidden md:block" />
-                    <div className="p-8 md:p-12 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl hover:border-purple-400/30 hover:-translate-y-1 transition-all duration-300">
-                      <h3 className="text-2xl font-semibold text-white mb-2">
-                        {exp.role} <span className="text-white/50">@</span> {exp.company}
-                      </h3>
-                      <p className="text-sm text-white/50 mb-6">{exp.period}</p>
-                      <p className="text-lg font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-6">
-                        {exp.highlight}
-                      </p>
-                      <ul className="space-y-3 mb-8">
-                        {exp.achievements.map((achievement, j) => (
-                          <li key={j} className="flex items-start gap-3 text-white/70">
-                            <span className="mt-2 w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex-shrink-0" />
-                            <span>{achievement}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="flex flex-wrap gap-2">
-                        {exp.tech.map((tech, j) => (
-                          <span key={j} className="inline-flex items-center px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-400/30 text-xs text-white">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Work Section */}
-        <section id="work" className="relative py-40 px-8">
-          <div className="max-w-[1280px] mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-20">
-              Selected Work
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {projects.map((project, i) => (
-               <a href={project?.link}> <div key={i} className={`group rounded-3xl overflow-hidden bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl hover:border-purple-400/30 hover:-translate-y-2 hover:shadow-2xl hover:shadow-purple-500/10 transition-all duration-500 cursor-pointer ${project.span}`}>
-               <div className="relative h-[400px] overflow-hidden">
-                 <div className="absolute inset-0 w-full h-full">
-                   <img 
-                     alt={project.title}
-                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                     src={project.image}
-                   />
-                 </div>
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0e27]/95 via-[#0a0e27]/60 to-transparent group-hover:from-[#0a0e27]/98 transition-all duration-500" />
-               </div>
-               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                 <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-400/30 text-xs font-semibold text-white mb-4">
-                   {project.category}
-                 </span>
-                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">{project.title}</h3>
-                 <p className="text-white/70 mb-6 line-clamp-2">{project.description}</p>
-                 <div className="flex flex-wrap gap-2 mb-4">
-                   {project.tech.map((tech, j) => (
-                     <span key={j} className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-white">
-                       {tech}
-                     </span>
-                   ))}
-                 </div>
-                 <div className="flex items-center gap-2 text-sm font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent group-hover:translate-x-1 transition-transform duration-300">
-                   View Details →
-                 </div>
-               </div>
-             </div></a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Impact Metrics */}
-        <section className="relative py-40 px-8">
-          <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 via-blue-500/5 to-transparent" />
-          <div className="relative max-w-[1120px] mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-16">
-              Measured Impact
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: '⚡', value: '0.8s', title: 'Page Load Time', subtitle: 'Down from 3.2s' },
-                { icon: '🚀', value: '50+', title: 'Daily Deployments', subtitle: 'Automated pipeline' },
-                { icon: '🛡️', value: '99.97%', title: 'System Uptime', subtitle: 'Last 12 months' },
-                { icon: '📦', value: '84%', title: 'Bundle Size Reduction', subtitle: 'Optimized builds' }
-              ].map((metric, i) => (
-                <div key={i} className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl hover:border-purple-400/30 hover:-translate-y-1 transition-all duration-300 text-center">
-                  <div className="text-4xl mb-6">{metric.icon}</div>
-                  <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-3">
-                    {metric.value}
-                  </div>
-                  <div className="text-base font-medium text-white mb-2">{metric.title}</div>
-                  <div className="text-sm text-white/60">{metric.subtitle}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials */}
-        <section className="relative py-40 px-8">
-          <div className="max-w-[1280px] mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-16">
-              Testimonials
-            </h2>
-            <div className="relative">
-              <div className="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide">
-                {testimonials.map((testimonial, i) => (
-                  <div key={i} className="flex-shrink-0 w-full md:w-[480px] snap-center">
-                    <div className="p-10 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-xl hover:border-purple-400/30 transition-all duration-300 h-full">
-                      <div className="text-3xl mb-6 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">"</div>
-                      <p className="text-lg text-white/80 leading-relaxed italic mb-8">{testimonial.quote}</p>
-                      <div className="flex items-center gap-4">
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center text-xl font-bold">
-                          {testimonial.name.charAt(0)}
-                        </div>
-                        <div>
-                          <div className="text-base font-semibold text-white">{testimonial.name}</div>
-                          <div className="text-sm text-white/50 mt-1">{testimonial.title}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-center gap-2 mt-8">
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveTestimonial(i)}
-                    className={`transition-all duration-300 rounded-full ${
-                      activeTestimonial === i
-                        ? 'w-8 h-2 bg-gradient-to-r from-purple-400 to-blue-400'
-                        : 'w-2 h-2 bg-white/20 hover:bg-white/40'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="relative min-h-screen flex items-center justify-center px-8 py-40">
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[1200px] h-[1200px] rounded-full bg-gradient-to-br from-purple-600/15 to-blue-600/15 blur-[150px]" />
-          </div>
-          <div className="relative max-w-[800px] mx-auto text-center">
-            <p className="text-xs uppercase tracking-[0.2em] font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-6">
-              Let's Build
-            </p>
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">Ready to ship something great?</h2>
-            <p className="text-lg text-white/70 mb-12 max-w-[560px] mx-auto">
-              I'm open to senior/lead roles, consulting, or technical advisory opportunities where I can make meaningful impact.
-            </p>
-            <div className="flex flex-col items-center gap-6">
-              <a
-                href="mailto:davidiniemem2000@gmail.com"
-                className="px-12 h-14 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold shadow-2xl shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center"
-              >
-                Get in Touch
-              </a>
-              <a href="mailto:davidiniemem2000@gmail.com" className="text-base font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:underline">
-              davidiniemem2000@gmail.com
-              </a>
-            </div>
-            <div className="flex items-center justify-center gap-6 mt-16">
-              {['GitHub', 'LinkedIn', 'Twitter'].map(platform => (
-                <a
-                  key={platform}
-                  href={`https://${platform.toLowerCase()}.com`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 flex items-center justify-center rounded-full border border-white/20 hover:border-purple-400/50 hover:bg-white/5 transition-all duration-300"
-                  aria-label={platform}
-                >
-                  {platform.charAt(0)}
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Footer */}
-        <footer className="relative border-t border-white/8 py-10 px-8">
-          <div className="max-w-[1440px] mx-auto">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-white/50">
-              <div>© 2025 All rights reserved</div>
-              <div className="flex items-center gap-6">
-                {['GitHub', 'LinkedIn', 'Twitter'].map(link => (
-                  <a key={link} href={`https://${link.toLowerCase()}.com`} className="hover:text-white transition-colors duration-300">
-                    {link}
-                  </a>
-                ))}
-              </div>
-              <div className="flex items-center gap-4">
-                <span>Lagos, Nigeria</span>
-              </div>
-            </div>
-          </div>
-        </footer>
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-[#0B0F19]">
+      {/* Background Ambience */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-900/20 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-900/20 rounded-full blur-[120px]" />
+        <div className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-blue-900/10 rounded-full blur-[100px]" />
       </div>
+
+      {/* Navigation - FIXED CONTRAST */}
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 flex justify-between items-center bg-[#0B0F19]/80 backdrop-blur-md border-b border-slate-800/50">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-xl font-bold text-white tracking-tighter"
+        >
+          ID<span className="text-indigo-400">.</span>
+        </motion.div>
+
+        <div className="hidden md:flex gap-8 text-sm font-medium text-slate-300">
+          {["Work", "Expertise", "Impact", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="hover:text-indigo-400 transition-colors duration-300 text-slate-300"
+            >
+              {item}
+            </a>
+          ))}
+        </div>
+
+        <motion.a
+          href="#contact"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-full text-sm font-medium text-white transition-all"
+        >
+          Hire Me <ArrowRight size={14} />
+        </motion.a>
+
+        <button
+          className="md:hidden text-white p-2"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-[#0B0F19] flex flex-col items-center justify-center gap-8 md:hidden">
+          {["Work", "Expertise", "Impact", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-2xl font-medium text-white hover:text-indigo-400"
+            >
+              {item}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <main className="relative z-10">
+        {/* HERO - FIXED CONTRAST */}
+        <section className="min-h-screen flex flex-col justify-center pt-32 px-6 md:px-12 lg:px-24 relative overflow-hidden">
+          <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-sm font-medium mb-6">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                Available for Senior Roles
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.1] mb-6">
+                <span className="text-white block">Engineering</span>
+                <span className="text-gradient block mt-2">Mobile Scale.</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-slate-400 max-w-xl mb-8 leading-relaxed">
+                I build cross-platform mobile systems that don't break under growth. 
+                From React Native architecture to automated DevOps pipelines.
+              </p>
+
+              <div className="flex flex-wrap gap-4">
+                <motion.a
+                  href="#work"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-white text-[#0B0F19] rounded-full font-semibold flex items-center gap-2 hover:bg-slate-200 transition-colors"
+                >
+                  View Projects <ArrowRight size={18} />
+                </motion.a>
+                <motion.a
+                  href="#contact"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-slate-800 border border-slate-600 text-white rounded-full font-semibold hover:bg-slate-700 transition-colors"
+                >
+                  Contact Me
+                </motion.a>
+              </div>
+            </motion.div>
+
+            {/* Device Mockup */}
+            <motion.div
+              style={{ y: y1, rotateX, opacity }}
+              className="relative h-[600px] hidden lg:flex items-center justify-center perspective-1000"
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 blur-3xl rounded-full" />
+              
+              <div className="relative w-[320px] h-[650px] bg-slate-800 rounded-[3rem] border-8 border-slate-700 shadow-2xl overflow-hidden transform rotate-y-12 rotate-z-6 hover:rotate-y-0 hover:rotate-z-0 transition-transform duration-700 ease-out">
+                <div className="w-full h-full bg-[#0B0F19] p-6 flex flex-col gap-4 relative overflow-hidden">
+                  <div className="flex justify-between items-center text-[10px] text-slate-400 px-2">
+                    <span>9:41</span>
+                    <div className="flex gap-1">
+                      <div className="w-4 h-2.5 bg-slate-600 rounded-sm" />
+                      <div className="w-0.5 h-2.5 bg-slate-600 rounded-sm" />
+                    </div>
+                  </div>
+
+                  <div className="mt-4 space-y-4">
+                    <div className="h-32 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-4 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full blur-xl -mr-10 -mt-10" />
+                      <div className="text-white font-bold text-lg">Dashboard</div>
+                      <div className="text-indigo-100 text-xs mt-1">System Operational</div>
+                      <div className="mt-4 flex gap-2">
+                        <div className="h-8 w-16 bg-white/20 rounded-lg backdrop-blur-md" />
+                        <div className="h-8 w-16 bg-white/20 rounded-lg backdrop-blur-md" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      {[1, 2, 3].map((i) => (
+                        <div key={i} className="h-16 bg-slate-800/80 rounded-xl border border-slate-700 flex items-center px-4 gap-3">
+                          <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                            <div className="w-3 h-3 bg-indigo-400 rounded-full" />
+                          </div>
+                          <div className="space-y-2 flex-1">
+                            <div className="h-2 w-24 bg-slate-600 rounded-full" />
+                            <div className="h-2 w-16 bg-slate-700 rounded-full" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -right-8 top-20 bg-slate-800 border border-slate-600 p-3 rounded-xl shadow-xl"
+                  >
+                    <Zap size={20} className="text-yellow-400" />
+                  </motion.div>
+                  
+                  <motion.div
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                    className="absolute -left-8 bottom-32 bg-slate-800 border border-slate-600 p-3 rounded-xl shadow-xl"
+                  >
+                    <Shield size={20} className="text-green-400" />
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 text-sm"
+          >
+            <span className="text-xs tracking-widest uppercase">Scroll</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <ChevronRight className="rotate-90" size={20} />
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* ABOUT - FIXED */}
+        <section id="about" className="py-32 px-6 md:px-12 lg:px-24 bg-[#0B0F19] relative">
+          <div className="max-w-7xl mx-auto">
+            <SectionHeading subtitle="Strategic Value">
+              Systems that scale, <br />
+              <span className="text-slate-500">not just code that runs.</span>
+            </SectionHeading>
+
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="space-y-6 text-lg text-slate-300 leading-relaxed"
+              >
+                <p>
+                  I don't just write code; I architect ecosystems. With deep expertise in{" "}
+                  <span className="text-indigo-400 font-semibold">React Native</span> and{" "}
+                  <span className="text-indigo-400 font-semibold">Expo</span>, I build mobile
+                  applications that feel native, perform flawlessly, and scale to millions of users.
+                </p>
+                <p>
+                  My background in{" "}
+                  <span className="text-purple-400 font-semibold">Full Stack</span> engineering and{" "}
+                  <span className="text-purple-400 font-semibold">DevOps</span> means I own the
+                  entire lifecycle—from the first line of TypeScript to the CI/CD pipeline
+                  deploying to AWS.
+                </p>
+                <div className="pt-4 flex flex-wrap gap-3">
+                  {["React Native", "TypeScript", "Node.js", "Docker", "AWS", "CI/CD"].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-300 font-medium"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+
+              <div className="grid grid-cols-1 gap-6">
+                {[
+                  {
+                    title: "Mobile Architecture",
+                    desc: "Modular, scalable React Native structures.",
+                    icon: Smartphone,
+                  },
+                  {
+                    title: "DevOps Automation",
+                    desc: "Dockerized environments & automated pipelines.",
+                    icon: Cpu,
+                  },
+                  {
+                    title: "Cloud Infrastructure",
+                    desc: "AWS & Firebase configurations for scale.",
+                    icon: Server,
+                  },
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    whileHover={{ x: 10 }}
+                    className="glass-card p-6 flex items-start gap-4 group cursor-default hover:border-indigo-500/30 transition-colors"
+                  >
+                    <div className="p-3 bg-indigo-500/20 rounded-lg text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                      <item.icon size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS - FIXED */}
+        <section id="work" className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-slate-900/30">
+          <div className="max-w-7xl mx-auto">
+            <SectionHeading subtitle="Selected Work">
+              Products that moved <br />
+              <span className="text-slate-500">the needle.</span>
+            </SectionHeading>
+
+            <div className="space-y-32">
+              {projects.map((project, index) => (
+                <motion.div
+                  key={project.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+                  className={`grid lg:grid-cols-2 gap-16 items-center ${
+                    index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                  }`}
+                >
+                  <div className={`relative ${index % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 blur-3xl rounded-full" />
+                    <div className="relative glass-card p-2 glow-border">
+                      <div className="aspect-[4/3] rounded-xl overflow-hidden bg-slate-800 relative group">
+                        <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-30 group-hover:opacity-40 transition-opacity duration-500`} />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                           <div className="w-3/4 h-3/4 border border-slate-600 rounded-lg bg-slate-900/90 p-6 flex flex-col gap-4 shadow-2xl transform group-hover:scale-105 transition-transform duration-500">
+                              <div className="flex justify-between items-center border-b border-slate-700 pb-4">
+                                <div className="w-8 h-8 rounded-full bg-slate-700" />
+                                <div className="w-20 h-2 bg-slate-600 rounded-full" />
+                              </div>
+                              <div className="space-y-3">
+                                <div className="w-full h-24 bg-slate-800 rounded-lg" />
+                                <div className="w-2/3 h-4 bg-slate-700 rounded-full" />
+                                <div className="w-1/2 h-4 bg-slate-700 rounded-full" />
+                              </div>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={index % 2 === 1 ? "lg:order-1" : ""}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-indigo-400 font-mono text-lg font-bold">0{project.id}</span>
+                      <div className="h-px w-12 bg-indigo-500/50" />
+                      <span className="text-slate-400 text-sm uppercase tracking-wider font-medium">{project.role}</span>
+                    </div>
+                    
+                    <h3 className="text-4xl font-bold text-white mb-6">{project.title}</h3>
+                    
+                    <div className="space-y-6 mb-8">
+                      <div>
+                        <h4 className="text-red-400 font-semibold mb-2 flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-red-500" /> Problem
+                        </h4>
+                        <p className="text-slate-300 leading-relaxed">{project.problem}</p>
+                      </div>
+                      <div>
+                        <h4 className="text-green-400 font-semibold mb-2 flex items-center gap-2">
+                          <div className="w-2 h-2 rounded-full bg-green-500" /> Solution
+                        </h4>
+                        <p className="text-slate-300 leading-relaxed">{project.solution}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-4 mb-8">
+                      {project?.metrics?.map((metric, i) => (
+                        <div key={i} className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-center">
+                          <div className="text-indigo-400 font-bold text-sm">{metric}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {project.stack.map((tech) => (
+                        <span key={tech} className="text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ENGINEERING DEPTH - FIXED */}
+        <section id="expertise" className="py-32 px-6 md:px-12 lg:px-24 bg-[#050811] relative">
+          <div className="max-w-7xl mx-auto">
+            <SectionHeading subtitle="Engineering Depth">
+              Beyond the UI Layer
+            </SectionHeading>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "CI/CD Mastery",
+                  desc: "Automated pipelines using GitHub Actions & Fastlane. Reduced deployment friction by 90%.",
+                  icon: GitBranch,
+                },
+                {
+                  title: "Infrastructure as Code",
+                  desc: "Dockerized development environments ensuring 'works on my machine' is a thing of the past.",
+                  icon: Layers,
+                },
+                {
+                  title: "Performance Optimization",
+                  desc: "Profiling React Native bridges, optimizing re-renders, and achieving 60fps consistently.",
+                  icon: Zap,
+                },
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="glass-card p-8 hover:bg-slate-800/80 transition-colors duration-300 group hover:border-indigo-500/30"
+                >
+                  <div className="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 mb-6 group-hover:scale-110 transition-transform">
+                    <item.icon size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                  <p className="text-slate-400 leading-relaxed text-sm">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-24">
+              <h3 className="text-2xl font-bold text-white mb-12 text-center">Technical Proficiency</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {skills.map((skill, idx) => (
+                  <div key={idx} className="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex items-center gap-4">
+                    <div className="p-2 bg-slate-700 rounded-lg text-slate-300">
+                      <skill.icon size={20} />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex justify-between mb-2">
+                        <span className="text-sm font-semibold text-slate-200">{skill.name}</span>
+                        <span className="text-xs text-slate-400 font-medium">{skill.level}%</span>
+                      </div>
+                      <div className="h-2 w-full bg-slate-700 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, delay: 0.2 }}
+                          className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* IMPACT METRICS - FIXED */}
+        <section id="impact" className="py-32 px-6 md:px-12 lg:px-24 relative overflow-hidden bg-indigo-950/20">
+          <div className="max-w-7xl mx-auto relative z-10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {metrics.map((metric, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="text-center p-8 glass-card bg-slate-900/90"
+                >
+                  <AnimatedCounter value={metric.value} suffix={metric.suffix} />
+                  <div className="mt-2 text-slate-400 font-medium">{metric.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS - FIXED */}
+        <section className="py-32 px-6 md:px-12 lg:px-24 bg-[#0B0F19]">
+          <div className="max-w-4xl mx-auto text-center">
+            <SectionHeading subtitle="Social Proof">
+              Trusted by Product Teams
+            </SectionHeading>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="glass-card p-10 md:p-16 relative mt-12 bg-slate-900/90"
+            >
+              <div className="text-6xl text-indigo-500/30 absolute top-8 left-8 font-serif">"</div>
+              <p className="text-xl md:text-2xl text-slate-300 leading-relaxed relative z-10 mb-8">
+                Iniemem transformed our mobile strategy. He didn't just deliver code; he delivered a 
+                robust system that reduced our crash rates to near zero and allowed us to ship features 
+                twice as fast.
+              </p>
+              <div className="flex items-center justify-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full" />
+                <div className="text-left">
+                  <div className="text-white font-bold">Alex Chen</div>
+                  <div className="text-slate-400 text-sm">CTO, Glopilot Inc.</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* CTA - FIXED */}
+        <section id="contact" className="py-32 px-6 md:px-12 lg:px-24 relative">
+          <div className="max-w-5xl mx-auto glass-card p-12 md:p-24 text-center relative overflow-hidden bg-slate-900/90">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500" />
+            
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Ready to scale your <br />
+              <span className="text-gradient">mobile product?</span>
+            </h2>
+            <p className="text-slate-400 text-lg mb-12 max-w-2xl mx-auto">
+              I'm currently available for senior engineering roles and consulting opportunities. 
+              Let's discuss how I can help your team build for the next 100,000 users.
+            </p>
+
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16">
+              <a
+                href="mailto:iniemem.david@example.com"
+                className="px-8 py-4 bg-indigo-600 text-white rounded-full font-bold text-lg hover:bg-indigo-500 transition-colors flex items-center gap-2"
+              >
+                <Mail size={20} /> Get in Touch
+              </a>
+              <a
+                href="#"
+                className="px-8 py-4 bg-slate-800 border border-slate-600 text-white rounded-full font-bold text-lg hover:bg-slate-700 transition-colors flex items-center gap-2"
+              >
+                <Download size={20} /> Download CV
+              </a>
+            </div>
+
+            <div className="flex justify-center gap-8 text-slate-400">
+              <a href="#" className="hover:text-indigo-400 transition-colors"><Github size={24} /></a>
+              <a href="#" className="hover:text-indigo-400 transition-colors"><Linkedin size={24} /></a>
+              <a href="#" className="hover:text-indigo-400 transition-colors"><Mail size={24} /></a>
+            </div>
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <footer className="py-12 px-6 text-center text-slate-500 text-sm border-t border-slate-800">
+          <p>© {new Date().getFullYear()} Iniemem David. All rights reserved.</p>
+          <p className="mt-2">Built with Next.js, Tailwind & Framer Motion.</p>
+        </footer>
+      </main>
     </div>
   );
-};
-
-export default Portfolio;
+}
